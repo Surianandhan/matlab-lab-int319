@@ -1,16 +1,16 @@
 # MATLAB Programming Lab (INT319)
 
-This repository contains MATLAB Programming lab programs implemented as MATLAB scripts and App Designer applications as part of the INT319 course.
+This repository contains MATLAB Programming lab programs implemented as MATLAB App Designer applications as part of the INT319 course.
 
 ## Overview
 
-The programs demonstrate image processing and data visualization in MATLAB, including contrast enhancement, smoothing and sharpening filters, morphological operations, thresholding, plotting data from files, statistical and texture feature extraction, edge detection, clustering-based segmentation, and image classification with machine learning.
+The programs demonstrate image processing and data visualization in MATLAB, including contrast enhancement, smoothing and sharpening filters, morphological operations, thresholding, plotting data from files, statistical and texture feature extraction, edge detection, clustering-based segmentation, and image classification with machine learning. Every experiment is provided in two versions: an App Designer file (`.mlapp`) and the same app as a plain MATLAB code file (`.m`).
 
 ## Topics Covered
 
 ### Image Enhancement
-- Histogram equalization with histeq() in an App Designer GUI
-- Noise removal with Mean, Median, Wiener and Gaussian filters
+- Histogram equalization with histeq()
+- Noise removal with Mean, Median, Wiener and Gaussian filters on Salt & Pepper or Gaussian noise
 - Sharpening with imsharpen, Unsharp Mask, Laplacian, LoG, Gaussian and Sobel filters
 
 ### Morphology and Segmentation
@@ -39,7 +39,7 @@ matlab-lab-int319/
 │
 ├── INT319/
 │   ├── 01_HistogramEqualization/
-│   ├── 02_SmootheningFilters/
+│   ├── 02_SmoothingFilters/
 │   ├── 03_SharpeningFilters/
 │   ├── 04_ImageMorphology/
 │   ├── 05_ImageThresholding/
@@ -52,57 +52,64 @@ matlab-lab-int319/
 └── README.md
 ```
 
-Each folder contains the App Designer app (a `classdef` `.m` file) or script(s) for one experiment.
+Each experiment folder contains two versions of the same app:
+- `<Name>.mlapp` — the App Designer file (open it in App Designer to see the layout and edit callbacks)
+- `<Name>_exported.m` — the same app as a plain MATLAB class file (App Designer's "Export to .m file" format)
 
 ## How to Run
 
 1. Open MATLAB (R2021a or later) and set an experiment folder as the **Current Folder**.
-2. Type the file name in the Command Window and press Enter:
+2. Run either version from the Command Window:
 
-| Experiment | Run |
-|---|---|
-| 01 Histogram Equalization | `lab1` |
-| 02 Smoothening Filters | `smoothening_filters` |
-| 03 Sharpening Filters | `app4` (app), `sharpening_demo` (script) |
-| 04 Image Morphology | `MorphologyApp` |
-| 05 Image Thresholding | `app5_thresholding` |
-| 06 Plotting from CSV | `bar_plot`, `line_plot`, `scatter_plot`, `box_plot`, `histogram_stats`, `pie_chart`, `geographic_plot`, `word_cloud` |
-| 07 Statistical Features | `app6` |
-| 08 Edge Detection | `exp8` |
-| 09 Image Clustering | `app9` |
-| 10 Image Classification | `app10` |
+| Experiment | App Designer version | Code version |
+|---|---|---|
+| 01 Histogram Equalization | `HistogramEqualization` | `HistogramEqualization_exported` |
+| 02 Smoothing Filters | `SmoothingFilters` | `SmoothingFilters_exported` |
+| 03 Sharpening Filters | `SharpeningFilters` | `SharpeningFilters_exported` |
+| 04 Image Morphology | `ImageMorphology` | `ImageMorphology_exported` |
+| 05 Image Thresholding | `ImageThresholding` | `ImageThresholding_exported` |
+| 06 Plotting from CSV | `PlottingFromCSV` | `PlottingFromCSV_exported` |
+| 07 Statistical Features | `StatisticalFeatures` | `StatisticalFeatures_exported` |
+| 08 Edge Detection | `EdgeDetection` | `EdgeDetection_exported` |
+| 09 Image Clustering | `ImageClustering` | `ImageClustering_exported` |
+| 10 Image Classification | `ImageClassification` | `ImageClassification_exported` |
 
-3. In the apps, use the Upload / Browse button to pick any image (MATLAB sample images such as `peppers.png` are in `matlabroot/toolbox/images/imdata`).
+   To edit an app, double-click the `.mlapp` file (or run `appdesigner('<Name>.mlapp')`).
 
-> Note: All image experiments need the **Image Processing Toolbox**. Experiments 06 (box plot), 07, 09 and 10 also need the **Statistics and Machine Learning Toolbox**, Experiment 09 needs the **Fuzzy Logic Toolbox** (`fcm`), and Experiment 10 needs the **Computer Vision Toolbox** (`extractHOGFeatures`).
+3. In the apps, use the Upload / Browse button to pick any image (MATLAB sample images such as `peppers.png`, `eight.tif` and `saturn.png` are in `matlabroot/toolbox/images/imdata`).
+
+> Note: All image experiments need the **Image Processing Toolbox**. Experiments 07, 09 and 10 also need the **Statistics and Machine Learning Toolbox**, Experiment 09 needs the **Fuzzy Logic Toolbox** (`fcm`), and Experiment 10 needs the **Computer Vision Toolbox** (`extractHOGFeatures`).
 >
-> Experiment 06: select `sample_data.csv` (columns: 1 ID, 2 City, 3 Latitude, 4 Longitude, 5 Temperature, 6 AQI) or `sample_text.txt` for the word cloud, then enter column numbers when prompted. The geographic plot needs an internet connection for the basemap.
+> Experiment 06: click **Load CSV** and pick `sample_data.csv` (or **Load Text File** and pick `sample_text.txt` for the word cloud), choose the plot type and columns, then click **Plot**. The geographic plot needs an internet connection for the basemap.
 >
 > Experiment 10: select a dataset folder that has one subfolder per class (the subfolder names become the labels). Keep the dataset small — HOG with 4×4 cells on 224×224 images gives about 108,900 features per image.
 
 ## Purpose
 
-- Learn MATLAB scripting and GUI development with App Designer
+- Learn MATLAB programming and GUI development with App Designer
 - Apply image enhancement, segmentation and feature extraction techniques
 - Visualize data read from external files
 - Build and evaluate a simple image classifier
 
 ## Notes
 
-The code was extracted from the lab records (lines wrapped by the PDF were re-joined) and corrected so it runs on current MATLAB versions:
-- Experiment 01: the equalized image was drawn into a 2×2-pixel axes placed off-screen, so it never appeared; the uploaded image now shows in the top axes and the result in the bottom axes, as in the record's output. Cancelling the file dialog, pressing Histogram before uploading, and clicking the lower axes (its callback used `I` without `global I`) no longer throw errors
-- Experiment 03: `sharpening_demo.m` holds the imsharpen steps from the record's procedure; a `figure;` was added so the `rice.png` step no longer draws over the sharpened image from step 2
-- Experiment 04: the record only had the code-view part of the app; the `classdef`, UI components, constructor and `delete` method were added (layout taken from the record's screenshots) so it runs
-- Experiment 05: choosing a method before loading an image no longer throws an error
-- Experiment 06: the eight plots are split into separate scripts, and `sample_data.csv` / `sample_text.txt` were added (the histogram of the AQI column reproduces the statistics printed in the record)
-- Experiment 08: the "Please load an image first!" warning now appears; reading `Children.CData` from the empty axes used to fail first and show a generic error dialog
+The code was extracted from the lab records and reorganised so every experiment is an App Designer app with a `.mlapp` and an exported `.m` version:
+- Files and classes were renamed after the experiment (e.g. `lab1` → `HistogramEqualization`, `app4` → `SharpeningFilters`, `app6` → `StatisticalFeatures`, `exp8` → `EdgeDetection`), with proper window titles and labels ("Method", "Operation", "Noise", "Filter") instead of the App Designer defaults
+- Experiment 01: the equalized image was drawn into a 2×2-pixel axes placed off-screen; the unused axes and empty callbacks were removed, the uploaded image is kept in an app property instead of a `global`, and the original/result appear in the top/bottom axes as in the record's output
+- Experiment 02: the record's script is now an app — load an image, pick the noise (Salt & Pepper 0.02 or Gaussian 0, 0.025) and the filter (Mean 3×3, Median, Wiener 5×5, Gaussian σ = 2); the filters and parameters are the record's
+- Experiment 03: the `imsharpen` Radius 2 / Amount 1 step from the record's procedure was added to the method list
+- Experiment 04: the record only had the code-view part of the app; the UI components, constructor and `delete` method were added (layout taken from the record's screenshots)
+- Experiment 05: rebuilt in App Designer style; the selected method is now applied as soon as an image is loaded, and choosing a method before loading an image no longer throws an error
+- Experiment 06: the record's eight plotting scripts are now one app with Load CSV / Load Text File, plot type and column drop-downs instead of `input()` prompts; the box plot uses `boxchart` (works in app axes). `sample_data.csv` and `sample_text.txt` were added — the histogram of the AQI column reproduces the statistics printed in the record
+- Experiment 08: the loaded image is kept in an app property, so the "Please load an image first!" warning now appears; dialogs use `uialert` instead of `warndlg`/`errordlg`
 - Experiment 09: grayscale images are converted to 3 channels before clustering (`reshape(img, [], 3)` failed on them)
+- The `.mlapp` files were generated with MATLAB R2026a's App Designer serializer and checked by loading each one with App Designer's file loader and running it; they open in App Designer releases back to R2018a (the code itself needs R2021a or later)
 
 ## Future Improvements
 
 - Add screenshots of outputs for each experiment
-- Provide the App Designer `.mlapp` files
 - Add comments explaining each program
+- Let the apps save their results to image files
 
 ## Author
 
