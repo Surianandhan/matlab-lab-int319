@@ -1,0 +1,8 @@
+MATLAB is widely used for image processing, data analysis and visualization.
+Image processing begins with reading an image, then enhancing, filtering and segmenting it.
+Filters such as mean, median, Gaussian and Wiener filters reduce noise in an image.
+Sharpening filters highlight edges, while morphology changes the shape of objects in an image.
+Thresholding and clustering split an image into regions, and edge detection finds boundaries.
+Features extracted from an image help a classifier learn to recognise new images.
+Data from CSV files can be shown with bar, line, scatter, box, histogram, pie and geographic plots.
+Visualization makes data easier to understand, and MATLAB makes visualization easy.
